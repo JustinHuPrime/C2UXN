@@ -1,0 +1,5 @@
+bin/
+deps/
+docs/
+PROJECT_NAME
+PROJECT_NAME-test
