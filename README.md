@@ -1,3 +1,5 @@
-# PROJECT_NAME
+# C2UXN
 
-PROJECT_BRIEF
+A C to UXN compiler
+
+See <https://wiki.xxiivv.com/site/uxn.html> for more about UXN./
