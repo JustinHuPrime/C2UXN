@@ -17,11 +17,50 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#include <algorithm>
+#include <fstream>
 #include <iostream>
+#include <iterator>
+
+#include "errors.h"
+#include "frontend/preprocessor.h"
 
 using namespace std;
+using namespace c2uxn;
+using namespace c2uxn::frontend;
 
-int main() {
-  cout << "Hello, World!" << endl;
-  return 0;
+int main(int argc, char **argv) {
+  if (argc != 2) {
+    cerr << "Usage: " << argv[0] << " <file>\n";
+    return 1;
+  }
+
+  ErrorReport errorReport;
+
+  try {
+    string filename = string(argv[1]);
+    ifstream fin = ifstream(filename);
+    if (!fin) {
+      error(filename, "could not open file");
+    }
+    string contents =
+        string(istreambuf_iterator<char>(fin), istreambuf_iterator<char>());
+
+    string preprocessed = preprocess(errorReport, filename, contents);
+    if (errorReport) {
+      cout << static_cast<string>(errorReport);
+      return EXIT_FAILURE;
+    }
+
+    cout << preprocessed;  // TODO: debug only
+  } catch (Error const &e) {
+    errorReport.add(e);
+  }
+
+  if (errorReport) {
+    cout << static_cast<string>(errorReport);
+    return EXIT_FAILURE;
+  }
+
+  return EXIT_SUCCESS;
 }
