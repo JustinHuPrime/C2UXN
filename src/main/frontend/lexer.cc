@@ -268,9 +268,6 @@ vector<Token> lex(ErrorReport &errorReport, string const &filename,
           curr = results[0].second;
           currFile = unescapeString(results, 2, content, currFile, line,
                                     character, curr);
-          if (currFile == "<stdin>") {
-            currFile = filename;
-          }
           line = strtoumax(&*results[1].first, nullptr, 10);
           character = 1;
         } catch (Error const &e) {

@@ -17,10 +17,4 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#define mkstr(a) #a
-
-char const *str = mkstr(hello);
-
-#define paste(a, b) a##b
-
-paste(in, t) x;
+_Pragma("some tokens")

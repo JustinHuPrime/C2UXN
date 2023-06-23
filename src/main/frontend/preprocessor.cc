@@ -35,6 +35,28 @@ namespace {
 constexpr size_t READ_END = 0;
 constexpr size_t WRITE_END = 1;
 constexpr size_t BUFFER_SIZE = 4096;
+
+char charToNybble(char c) {
+  if (0 <= c <= 9) {
+    return c + '0';
+  } else {
+    return c + 'a';
+  }
+}
+
+string escapeString(string const &s) {
+  string result;
+  for_each(s.begin(), s.end(), [&result](char c) {
+    if (' ' <= c <= '~') {
+      result += c;
+    } else {
+      result += "\\";
+      result += charToNybble((c & 0xf0) >> 4);
+      result += charToNybble((c & 0x0f) >> 0);
+    }
+  });
+  return result;
+}
 }  // namespace
 
 string preprocess(ErrorReport &errorReport, string const &filename,
@@ -79,6 +101,13 @@ string preprocess(ErrorReport &errorReport, string const &filename,
               fdopen(fromPreprocessorPipe[READ_END], "r"), fclose);
 
       // write to child
+      // override filename
+      string escaped = escapeString(filename);
+      if (int written = fprintf(toPreprocessor.get(), "#line 1 \"%s\"\n",
+                                escaped.c_str());
+          written != escaped.size() + 11) {
+        throw runtime_error("could not set filename"s);
+      }
       if (fwrite(text.data(), sizeof(char), text.size(),
                  toPreprocessor.get()) != text.size()) {
         throw runtime_error("could not send file to preprocessor");
