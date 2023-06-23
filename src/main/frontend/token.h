@@ -37,6 +37,7 @@ struct Token final {
     CHARACTER_CONSTANT,
     STRING_LITERAL,
     PUNCTUATION,
+    END_OF_FILE,
   };
 
   Token(SourceLocation const &, Type, std::string const &) noexcept;

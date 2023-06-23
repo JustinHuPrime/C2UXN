@@ -23,10 +23,12 @@
 #include <string>
 #include <vector>
 
+#include "errors.h"
 #include "frontend/token.h"
 
 namespace c2uxn::frontend {
-std::vector<Token> lex(std::string const &text);
+std::vector<Token> lex(ErrorReport &errorReport, std::string const &filename,
+                       std::string const &text);
 }
 
 #endif  // C2UXN_FRONTEND_LEXER_H_

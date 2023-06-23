@@ -23,11 +23,14 @@
 #include <memory>
 #include <vector>
 
+#include "errors.h"
 #include "frontend/ast.h"
 #include "frontend/token.h"
 
 namespace c2uxn::frontend {
-std::unique_ptr<ASTNode> parse(std::vector<Token> &);
+std::unique_ptr<ASTNode> parse(ErrorReport &errorReport,
+                               std::string const &filename,
+                               std::vector<Token> const &tokens);
 }
 
 #endif  // C2UXN_FRONTEND_PARSER_H_

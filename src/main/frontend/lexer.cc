@@ -22,7 +22,8 @@
 using namespace std;
 
 namespace c2uxn::frontend {
-vector<Token> lex(string const &text) {
+vector<Token> lex(ErrorReport &errorReport, string const &filename,
+                  string const &text) {
   vector<Token> tokens;
   return tokens;  // TODO
 }

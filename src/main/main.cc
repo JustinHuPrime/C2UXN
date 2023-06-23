@@ -23,6 +23,8 @@
 #include <iterator>
 
 #include "errors.h"
+#include "frontend/lexer.h"
+#include "frontend/parser.h"
 #include "frontend/preprocessor.h"
 
 using namespace std;
@@ -52,7 +54,18 @@ int main(int argc, char **argv) {
       return EXIT_FAILURE;
     }
 
-    cout << preprocessed;  // TODO: debug only
+    vector<Token> tokens = lex(errorReport, filename, preprocessed);
+    if (errorReport) {
+      cout << static_cast<string>(errorReport);
+      return EXIT_FAILURE;
+    }
+
+    unique_ptr<ASTNode> ast = parse(errorReport, filename, tokens);
+    if (errorReport) {
+      cout << static_cast<string>(errorReport);
+      return EXIT_FAILURE;
+    }
+
   } catch (Error const &e) {
     errorReport.add(e);
   }

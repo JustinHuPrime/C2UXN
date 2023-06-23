@@ -22,7 +22,8 @@
 using namespace std;
 
 namespace c2uxn::frontend {
-unique_ptr<ASTNode> parse(vector<Token> &) {
+unique_ptr<ASTNode> parse(ErrorReport &errorReport, string const &filename,
+                          vector<Token> &tokens) {
   // TODO
   return nullptr;
 }
