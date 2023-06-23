@@ -63,9 +63,10 @@ class Error {
   std::string content;
 };
 
-void error(std::string const &filename, std::string const &message);
-void error(frontend::SourceLocation const &location,
-           std::string const &message);
+[[noreturn]] void error(std::string const &filename,
+                        std::string const &message);
+[[noreturn]] void error(frontend::SourceLocation const &location,
+                        std::string const &message);
 }  // namespace c2uxn
 
 #endif  // C2UXN_ERRORS_ERRORS_H_

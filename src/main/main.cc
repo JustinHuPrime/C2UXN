@@ -60,12 +60,16 @@ int main(int argc, char **argv) {
       return EXIT_FAILURE;
     }
 
+    // TODO: debug only
+    for_each(tokens.begin(), tokens.end(),
+             [](Token const &t) { cout << t.text << " "; });
+    cout << "\n";
+
     unique_ptr<ASTNode> ast = parse(errorReport, filename, tokens);
     if (errorReport) {
       cout << static_cast<string>(errorReport);
       return EXIT_FAILURE;
     }
-
   } catch (Error const &e) {
     errorReport.add(e);
   }

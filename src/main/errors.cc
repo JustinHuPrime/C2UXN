@@ -46,10 +46,10 @@ void ErrorReport::add(string const &message) noexcept {
 Error::Error(string const &content) noexcept : content(content) {}
 Error::operator string() const noexcept { return content; }
 
-void error(string const &filename, string const &message) {
+[[noreturn]] void error(string const &filename, string const &message) {
   throw Error(filename + ": error: "s + message);
 }
-void error(SourceLocation const &location, string const &message) {
+[[noreturn]] void error(SourceLocation const &location, string const &message) {
   throw Error(static_cast<string>(location) + ": error: "s + message);
 }
 }  // namespace c2uxn

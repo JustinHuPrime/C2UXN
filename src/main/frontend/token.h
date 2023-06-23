@@ -21,26 +21,27 @@
 #define C2UXN_FRONTEND_TOKEN_H_
 
 #include <string>
+#include <variant>
 
 #include "frontend/sourceLocation.h"
 
 namespace c2uxn::frontend {
 struct Token final {
   enum class Type {
+    END_OF_FILE,
     KEYWORD,
     IDENTIFIER,
-    DECIMAL_CONSTANT,
-    OCTAL_CONSTANT,
-    HEXADECIMAL_CONSTANT,
-    DECIMAL_FLOATING_CONSTANT,
-    HEXADECIMAL_FLOATING_CONSTANT,
+    INTEGER_CONSTANT,
     CHARACTER_CONSTANT,
     STRING_LITERAL,
     PUNCTUATION,
-    END_OF_FILE,
   };
 
   Token(SourceLocation const &, Type, std::string const &) noexcept;
+  Token(SourceLocation const &, Type, std::string const &, int16_t) noexcept;
+  Token(SourceLocation const &, Type, std::string const &, char) noexcept;
+  Token(SourceLocation const &, Type, std::string const &,
+        std::string const &) noexcept;
   Token(Token const &) noexcept = default;
   Token(Token &&) noexcept = default;
 
@@ -52,6 +53,7 @@ struct Token final {
   SourceLocation location;
   Type type;
   std::string text;
+  std::variant<int16_t, char, std::string> data;
 };
 }  // namespace c2uxn::frontend
 

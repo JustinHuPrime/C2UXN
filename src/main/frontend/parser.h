@@ -21,6 +21,7 @@
 #define C2UXN_FRONTEND_PARSER_H_
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "errors.h"

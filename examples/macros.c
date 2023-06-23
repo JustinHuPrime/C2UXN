@@ -17,9 +17,10 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include <stdio.h>
+#define mkstr(a) #a
 
-int main(void) {
-  printf("Hello, world!\n");
-  return 0;
-}
+char const *str = mkstr(hello);
+
+#define paste(a, b) a##b
+
+paste(in, t) x;

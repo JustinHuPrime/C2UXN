@@ -24,5 +24,14 @@ using namespace std;
 namespace c2uxn::frontend {
 Token::Token(SourceLocation const &location, Type type,
              string const &text) noexcept
-    : location(location), type(type), text(text) {}
+    : location(location), type(type), text(text), data() {}
+Token::Token(SourceLocation const &location, Type type, string const &text,
+             int16_t value) noexcept
+    : location(location), type(type), text(text), data(value) {}
+Token::Token(SourceLocation const &location, Type type, string const &text,
+             char value) noexcept
+    : location(location), type(type), text(text), data(value) {}
+Token::Token(SourceLocation const &location, Type type, string const &text,
+             std::string const &value) noexcept
+    : location(location), type(type), text(text), data(value) {}
 }  // namespace c2uxn::frontend

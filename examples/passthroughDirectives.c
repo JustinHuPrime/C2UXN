@@ -17,14 +17,5 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "frontend/parser.h"
-
-using namespace std;
-
-namespace c2uxn::frontend {
-unique_ptr<ASTNode> parse(ErrorReport &errorReport, string const &filename,
-                          vector<Token> const &tokens) {
-  // TODO
-  return nullptr;
-}
-}  // namespace c2uxn::frontend
+#ident "foo"
+#pragma "bar"

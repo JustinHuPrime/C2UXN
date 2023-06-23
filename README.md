@@ -20,4 +20,4 @@ Furthermore:
 
 ## Environment
 
-The compiler operates with a source character set of 8-bit ASCII and an execution character set of 8-bit ASCII, and tries to be a conforming freestanding implementation.
+The compiler operates with a source character set of 8-bit ASCII (excluding anything below 0x20 (a.k.a. space) except for 0x12 (a.k.a. line feed, newline) and 0x11 (a.k.a. tab)) and an execution character set of 8-bit ASCII, and tries to be a conforming freestanding implementation.

@@ -62,10 +62,7 @@ string preprocess(ErrorReport &errorReport, string const &filename,
       dup2(fromPreprocessorPipe[WRITE_END],
            STDOUT_FILENO);  // make stdout the write end of the pipe
 
-      int devNull = open("/dev/null", O_WRONLY | O_CLOEXEC);
-      dup2(devNull, STDERR_FILENO);  // make stderr go to /dev/null
-
-      execlp("cpp", "cpp", "-std=c17", "-ffreestanding", nullptr);
+      execlp("cpp", "cpp", "-std=c17", "-ffreestanding", "-undef", nullptr);
       raise(SIGUSR1);
       // can't get here (would be terminated by SIGUSR1)
       abort();
